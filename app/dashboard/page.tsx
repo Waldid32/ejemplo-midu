@@ -1,6 +1,27 @@
+import { Suspense } from "react";
+import { fetchLatestInvoices } from "../lib/data"
+import LatestInvoices from "../ui/dashboard/latest-invoices";
+import RevenueChart from "../ui/dashboard/revenue-chart";
+import { lusitana } from "../ui/font";
+import { LatestInvoicesSkeleton, RevenueChartSkeleton } from "../ui/skeletons";
 
-export default function page() {
+export default async function Page() {
+
+
     return (
-        <div>Dash</div>
+        <main>
+            <h1 className={`${lusitana.className} mb-4 text-xl md:text-2xl`}>Dashboard</h1>
+            <div className="grid gap-6 smgridco2">
+
+            </div>
+            <div className="mt-6 grid grid-cols-1 gap-6 md:grid-cols-4 lg:grid-cols-8">
+                <Suspense fallback={<RevenueChartSkeleton />}>
+                    <RevenueChart />
+                </Suspense>
+                <Suspense fallback={<LatestInvoicesSkeleton />}>
+                    <LatestInvoices />
+                </Suspense>
+            </div>
+        </main>
     )
 }
